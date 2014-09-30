@@ -1,0 +1,28 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <%= render @users %> 
+</ul>
+
+<%= will_paginate %>
+
+<!-- 
+  notes: 
+  
+  will_paginate looks for an instance variable with the same name
+  as the controller. Here, it's looking for @users 
+
+  pagination uses the efficient SQL: 
+  SELECT "users".* FROM "users" LIMIT 30 OFFSET 60 
+-->
+
+  <%# replaced by render @users %>
+
+  <%# @users.each do |user| %>
+  <!-- rails knows that user is of class User, so it looks for a '_user' partial -->
+    <%#= render user %>
+    <!-- same as render 'user', user: user -->
+  <%# end %>

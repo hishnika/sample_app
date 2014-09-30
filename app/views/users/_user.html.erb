@@ -1,0 +1,9 @@
+<li>
+  <%# rails automatically makes a 'user' var since the object is of class User %>
+  <%= gravatar_for user, size: 52 %>
+  <%= link_to user.name, user %>
+  <% if current_user.admin? && !current_user?(user) %>
+  <%# confirm is invoked only when using javascript, so it's skipped in tests %>
+    | <%= link_to 'delete', user, method: :delete, confirm: "You sure?" %>
+  <% end %>
+</li>

@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
+  # never include :admin in attr_accessible because a user can use it in POST 
+  # instead, use user.toggle!(:admin) when creating a user in tests etc.
+  # see "accessible attirbutes" test in user_spec
   has_secure_password
 
   before_save { |user| user.email = user.email.downcase }
