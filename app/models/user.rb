@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   # instead, use user.toggle!(:admin) when creating a user in tests etc.
   # see "accessible attirbutes" test in user_spec
   has_secure_password
+  # destroy microposts when user is deleted
+  has_many :microposts, dependent: :destroy
 
   before_save { |user| user.email = user.email.downcase }
   before_save :create_remember_token
@@ -16,6 +18,13 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
   after_validation { self.errors.messages.delete(:password_digest) }
+
+  def feed
+    # This is only a proto-feed
+    # self.microposts or microposts, or self.id, or id it all works but this is better
+    Micropost.where("user_id = ?", id) 
+    # never interpolate inside a query due to SQL injection
+  end
 
   private
 
