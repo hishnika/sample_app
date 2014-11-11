@@ -1,7 +1,19 @@
 SampleApp::Application.routes.draw do
-  resources :users
+  resources :users do
+    # member functions provid the id of the user (/users/1)
+    member do
+      # the names of actions assigned to the request they respond to
+      get :following, :followers
+    end
+
+    # collections don't include the id:
+    # collection do
+    #   get :tigers would create a /tigers action
+    # end
+  end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
   
   root to: 'static_pages#home'
 

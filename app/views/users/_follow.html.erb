@@ -1,0 +1,6 @@
+<%# to tell reails the path, since this is a relationship we have to define a route for relationships (in routes.rb as resources :relationships) %>
+<%= form_for(current_user.relationships.build(followed_id: @user.id),
+             remote: true) do |f| %> <%# enable Ajax via remote: true %>
+  <div><%= f.hidden_field :followed_id %></div>
+  <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+<% end %>

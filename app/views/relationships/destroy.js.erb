@@ -1,0 +1,4 @@
+// replace the unfollow partial with the follow one
+$("#follow_form").html("<%= escape_javascript(render('users/follow')) %>")
+// update followers count
+$("#followers").html('<%= @user.followers.count %>')
